@@ -4,7 +4,7 @@
 
 **Catch leaked secrets before attackers do.**
 
-Ever accidentally pushed an API key to GitHub? SecureVault scans any public repository and surfaces exposed credentials in seconds — with a confidence score so you know what's actually worth worrying about.
+Ever accidentally pushed an API key to GitHub? SecureVault scans any public repository and surfaces exposed credentials in seconds, with a confidence score so you know what's actually worth worrying about.
 
 [![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=white)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
@@ -32,11 +32,11 @@ Ever accidentally pushed an API key to GitHub? SecureVault scans any public repo
 
 ## Why SecureVault?
 
-Leaked secrets are one of the most common causes of security breaches — and most of the time, developers don't even realize they've committed one. SecureVault helps you find them fast, understand how serious they are, and know exactly which file to fix.
+Leaked secrets are one of the most common causes of security breaches, and most of the time developers don't even realize they've committed one. SecureVault helps you find them fast, understand how serious they are, and know exactly which file to fix.
 
 - Scans entire repositories in a single API call
 - Detects 27+ secret types across AI, cloud, payments, and DevOps
-- Scores each finding by **severity** (impact if real) and **confidence** (likelihood it is real) — independently
+- Scores each finding by **severity** (impact if real) and **confidence** (likelihood it is real), tracked independently
 - Redacts secret values before they ever leave the backend
 - No sign-up, no install, just paste a repo and go
 
@@ -196,7 +196,7 @@ A few things worth knowing about how SecureVault handles data:
 
 - Your GitHub token is only used to set an `Authorization` header on API requests. It is never stored, logged, or sent anywhere else.
 - Secret values are always redacted before leaving the backend. The frontend only ever sees a `first6****last4` preview, never the full value.
-- SecureVault does not verify credentials against live APIs. It does structural pattern matching only — no calls to AWS, GitHub, Stripe, or anyone else.
+- SecureVault does not verify credentials against live APIs. It does structural pattern matching only. No calls to AWS, GitHub, Stripe, or anyone else.
 
 ---
 
