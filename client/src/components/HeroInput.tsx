@@ -39,8 +39,7 @@ export function HeroInput({
           attackers do.
         </h1>
         <p className="hero__subtitle">
-          Scan any public GitHub repository for committed API keys, tokens, and
-          credentials — in seconds.
+          Scan any public GitHub repository for committed API keys, tokens, and credentials. In seconds.
         </p>
 
         <div className="hero__row">
