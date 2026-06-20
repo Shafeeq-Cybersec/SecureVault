@@ -131,55 +131,6 @@ Without a token you get 60 unauthenticated API requests per hour (enough for sma
 
 ---
 
-## Deployment
-
-### Frontend → Vercel
-
-1. Push the repo to GitHub.
-2. Import the project in [vercel.com](https://vercel.com). Set the **root directory** to `client`.
-3. Add an environment variable in the Vercel dashboard:
-   ```
-   VITE_API_URL = https://your-backend.railway.app
-   ```
-4. Deploy. `client/vercel.json` handles the SPA rewrite and build config automatically.
-
-### Backend → Railway
-
-1. Create a new project in [railway.app](https://railway.app) from your GitHub repo. Set the **root directory** to `server`.
-2. Railway detects the `Dockerfile` automatically.
-3. Add environment variables in the Railway dashboard:
-   ```
-   CORS_ORIGINS = https://your-app.vercel.app
-   ```
-   `PORT` is injected by Railway automatically.
-4. Copy the generated Railway domain and paste it into Vercel's `VITE_API_URL`.
-
-### Backend → Render (alternative)
-
-1. New Web Service → connect your repo → set **Root Directory** to `server`.
-2. Render detects the `Dockerfile` automatically.
-3. Add the same `CORS_ORIGINS` environment variable.
-4. The free tier spins down after inactivity. Expect a ~30s cold start on the first request.
-
----
-
-## Environment variables
-
-### Backend (`server/.env.example`)
-
-| Variable | Default | Description |
-|---|---|---|
-| `PORT` | `8000` | Port the server listens on. Injected automatically by Railway/Render. |
-| `CORS_ORIGINS` | `http://localhost:5173,...` | Comma-separated list of allowed frontend origins. Set to your Vercel URL in production. |
-
-### Frontend (`client/.env.example`)
-
-| Variable | Default | Description |
-|---|---|---|
-| `VITE_API_URL` | `http://localhost:8000` | Base URL of the FastAPI backend. Set to your Railway/Render URL in production via the Vercel dashboard. |
-
----
-
 ## Project structure
 
 ```
