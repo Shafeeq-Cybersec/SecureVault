@@ -1307,9 +1307,18 @@ a {
 
 /* ---- Phone landscape / large phone (≤ 640px) ---- */
 @media (max-width: 640px) {
-  /* Hide token field on mobile */
   .token-field-wrap {
-    display: none;
+    display: flex;
+  }
+  .token-field {
+    width: 150px;
+    height: 32px;
+  }
+  .token-field input {
+    font-size: 12px;
+  }
+  .token-hint {
+    font-size: 10px;
   }
 
   /* Hero */
@@ -1415,9 +1424,23 @@ a {
 
 /* ---- Phone portrait (≤ 480px) ---- */
 @media (max-width: 480px) {
+  .header {
+    height: auto;
+  }
   .header__inner {
-    padding: 0 var(--space-3);
+    padding: var(--space-2) var(--space-3);
+    flex-direction: column;
+    align-items: stretch;
     gap: var(--space-2);
+  }
+  .header__actions {
+    justify-content: flex-start;
+  }
+  .token-field-wrap {
+    align-items: flex-start;
+  }
+  .token-field {
+    width: 100%;
   }
   /* Hide scanned repo slug from header */
   .brand__repo {
