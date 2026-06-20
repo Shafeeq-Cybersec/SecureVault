@@ -12,7 +12,7 @@ SecureVault scans any public GitHub repository for accidentally committed API ke
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.138-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
 
-[🚀 Live Demo](https://secure-vault-bay-six.vercel.app) · [🐛 Report Bug](../../issues) · [✨ Request Feature](../../issues)
+[🚀 Live Demo](https://securevault-scanner.vercel.app) · [🐛 Report Bug](../../issues) · [✨ Request Feature](../../issues)
 
 </div>
 
