@@ -1,4 +1,4 @@
-"""POST /api/scan — scan a GitHub repository for committed secrets."""
+"""POST /api/scan: scan a GitHub repository for committed secrets."""
 
 from __future__ import annotations
 

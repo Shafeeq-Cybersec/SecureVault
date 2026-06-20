@@ -25,7 +25,7 @@ SKIP_FILENAMES = {
     "composer.lock", "gemfile.lock", "cargo.lock", "go.sum",
 }
 
-# Binary / non-text extensions — never worth a content fetch.
+# Binary / non-text extensions: never worth a content fetch.
 BINARY_EXTENSIONS = {
     ".png", ".jpg", ".jpeg", ".gif", ".bmp", ".ico", ".webp", ".tif", ".tiff",
     ".pdf", ".zip", ".gz", ".tar", ".rar", ".7z", ".bz2", ".xz",

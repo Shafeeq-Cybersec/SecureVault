@@ -90,7 +90,7 @@ function App() {
       <footer className="footer">
         <div className="footer__inner">
           <span>Built by <a href="https://github.com/Shafeeq-Cybersec" target="_blank" rel="noopener noreferrer">Shafeeq S</a></span>
-          <span>SecureVault — GitHub Secrets Scanner</span>
+          <span>SecureVault | GitHub Secrets Scanner</span>
         </div>
       </footer>
     </div>

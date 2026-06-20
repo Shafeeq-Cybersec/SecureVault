@@ -8,7 +8,7 @@ export function CopyButton({ text, label = 'Copy' }: { text: string; label?: str
     try {
       await navigator.clipboard.writeText(text)
     } catch {
-      /* clipboard blocked — ignore */
+      /* clipboard blocked, ignore */
     }
     setCopied(true)
     setTimeout(() => setCopied(false), 1500)

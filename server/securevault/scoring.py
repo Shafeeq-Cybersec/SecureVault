@@ -46,7 +46,7 @@ STRONG_PREFIX_RULES = {
 # High-specificity provider prefixes are very unlikely to match by accident;
 # keyword-based rules (generic key / password) are far more prone to noise.
 BASE_CONFIDENCE = {
-    # Strong structural prefix + exact length — very low FP rate
+    # Strong structural prefix + exact length. Very low FP rate.
     "private_key": 92,
     "digitalocean_pat": 92,
     "gitlab_pat": 92,
@@ -126,8 +126,8 @@ _CODE_REF_HINTS = (
 
 
 def is_env_template(value: str) -> bool:
-    """Variable references: ${VAR}, $VAR, {{ var }}, <API_KEY>. Meaningful — they
-    show where a real credential flows, so we surface them (at LOW)."""
+    """Variable references: ${VAR}, $VAR, {{ var }}, <API_KEY>.
+    Show where a real credential flows, so we surface them (at LOW)."""
     return bool(_TEMPLATE_RE.search(value) or _ANGLE_RE.search(value))
 
 
@@ -304,7 +304,7 @@ def score_finding(
     if rule_id in STRONG_PREFIX_RULES:
         signals.append("Matches a high-specificity provider prefix")
 
-    # Path context — caps confidence + categorises, but keeps severity
+    # Path context: caps confidence and categorises, but keeps severity
     # (a real key in tests/ is still critical *if* it is real).
     path_kind = classify_path(path)
     if path_kind == "example":
@@ -336,7 +336,7 @@ def score_finding(
         signals.append(f"High entropy ({ent:.1f} bits/char)")
         conf += 8
     elif ent < 2.5 and weak:
-        signals.append(f"Low entropy ({ent:.1f} bits/char) — looks human-written")
+        signals.append(f"Low entropy ({ent:.1f} bits/char), looks human-written")
         conf -= 18
 
     # Structural format validation.

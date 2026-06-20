@@ -77,7 +77,7 @@ export const SEVERITY_RANK: Record<Severity, number> = {
   LOW: 1,
 }
 
-/** Stable identity for a finding — used for React keys and checklist storage. */
+/** Stable identity for a finding, used for React keys and checklist storage. */
 export function findingKey(f: Finding): string {
   return `${f.rule_id}:${f.file_path}:${f.line_number}:${f.match_preview}`
 }

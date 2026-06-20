@@ -12,7 +12,7 @@ class Finding(BaseModel):
     line_number: int
     secret_type: str
     rule_id: str
-    severity: str = Field(description="CRITICAL | HIGH | MEDIUM | LOW — impact if real")
+    severity: str = Field(description="CRITICAL | HIGH | MEDIUM | LOW. Impact if real.")
     confidence: int = Field(
         description="0-99 likelihood this is a real, live secret (multi-signal score)"
     )

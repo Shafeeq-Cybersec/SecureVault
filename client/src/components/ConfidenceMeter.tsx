@@ -16,7 +16,7 @@ export function ConfidenceMeter({
   return (
     <div
       className={`confidence confidence--${size}`}
-      title={`${label ?? ''} confidence — ${value}%`.trim()}
+      title={`${label ?? ''} confidence: ${value}%`.trim()}
     >
       <div className="confidence__bar">
         <div

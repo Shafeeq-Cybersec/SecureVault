@@ -144,7 +144,7 @@ RULES: list[Rule] = [
         pattern=re.compile(r"(?P<secret>dop_v1_[a-f0-9*]{20,})"),
         remediation=(
             "Revoke the token in the DigitalOcean control panel under "
-            "API > Tokens/Keys immediately — it grants full account access."
+            "API > Tokens/Keys immediately. It grants full account access."
         ),
     ),
     # ── Communication / SaaS ─────────────────────────────────────────────────
@@ -280,7 +280,7 @@ RULES: list[Rule] = [
         pattern=re.compile(r"(?P<secret>sk_live_[0-9a-zA-Z*]{6,})"),
         remediation=(
             "Roll the key in the Stripe Dashboard > Developers > API keys "
-            "immediately — a live secret key can move real money. Review recent "
+            "immediately. A live secret key can move real money. Review recent "
             "charges/refunds for abuse."
         ),
     ),

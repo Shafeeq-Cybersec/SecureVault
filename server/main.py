@@ -1,4 +1,4 @@
-"""SecureVault backend — FastAPI entrypoint."""
+"""SecureVault backend: FastAPI entrypoint."""
 
 import os
 

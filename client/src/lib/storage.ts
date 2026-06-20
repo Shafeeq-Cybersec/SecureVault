@@ -18,6 +18,6 @@ export function saveChecklist(repo: string, state: ChecklistState): void {
   try {
     localStorage.setItem(keyFor(repo), JSON.stringify(state))
   } catch {
-    /* storage unavailable (private mode / quota) — degrade gracefully */
+    /* storage unavailable (private mode / quota), ignore */
   }
 }

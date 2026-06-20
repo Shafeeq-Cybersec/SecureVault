@@ -1,18 +1,18 @@
 /* ============================================================================
-   SecureVault — design tokens + base
+   SecureVault design tokens + base
    Dark, Linear/Vercel-inspired. Typography-led. One accent. Borders for
    structure, not decoration.
    ========================================================================== */
 
 :root {
-  /* Surfaces — very dark, near-black, layered by subtle lightness */
+  /* Surfaces: very dark, near-black, layered by subtle lightness */
   --bg: #09090b;
   --bg-elevated: #0e0e11;
   --bg-card: #121215;
   --bg-subtle: #18181b;
   --bg-hover: #1c1c20;
 
-  /* Borders — low contrast, 1px, structural */
+  /* Borders: low contrast, 1px, structural */
   --border: rgba(255, 255, 255, 0.07);
   --border-strong: rgba(255, 255, 255, 0.12);
   --border-focus: rgba(110, 98, 229, 0.55);
@@ -23,14 +23,14 @@
   --text-tertiary: #71717a;
   --text-quaternary: #52525b;
 
-  /* The single accent — muted indigo-violet, used sparingly */
+  /* Accent: muted indigo-violet, used sparingly */
   --accent: #6e62e5;
   --accent-hover: #7e73ef;
   --accent-text: #b8b1f4;
   --accent-bg: rgba(110, 98, 229, 0.12);
   --accent-border: rgba(110, 98, 229, 0.3);
 
-  /* Severity — low saturation, professional */
+  /* Severity: low saturation, professional */
   --critical: #e0696e;
   --critical-bg: rgba(224, 105, 110, 0.1);
   --critical-border: rgba(224, 105, 110, 0.28);
@@ -67,13 +67,13 @@
   --space-12: 48px;
   --space-16: 64px;
 
-  /* Radius — moderate, consistent */
+  /* Radius: moderate, consistent */
   --radius-sm: 6px;
   --radius: 8px;
   --radius-lg: 12px;
   --radius-xl: 16px;
 
-  /* Elevation — subtle only */
+  /* Elevation: subtle only */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5);
@@ -149,7 +149,7 @@ pre,
   outline-offset: 2px;
 }
 
-/* Custom scrollbar — quiet */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;

@@ -46,7 +46,7 @@ export function Results({
           <div className="state__hint" style={{ alignSelf: 'flex-start' }}>
             <TriangleAlert size={14} style={{ color: 'var(--high)' }} />
             {result.errors[0] ??
-              'Scan was incomplete — some files may not have been scanned.'}
+              'Scan was incomplete. Some files may not have been scanned.'}
           </div>
         )}
 

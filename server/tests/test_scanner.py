@@ -1,4 +1,4 @@
-"""Detection tests using fake, invalid secrets — no network involved.
+"""Detection tests using fake, invalid secrets. No network involved.
 
 Every credential below is syntactically shaped like the real thing but is not a
 live secret. The goal is to prove each detector fires, redaction hides the value,
@@ -133,7 +133,7 @@ def test_weak_rule_placeholders_are_suppressed():
 
 
 def test_strong_prefix_example_is_classified_not_hidden():
-    # The canonical AWS example key still has a strong prefix — surface it, but
+    # The canonical AWS example key still has a strong prefix. Surface it, but
     # as a low-confidence Example/Template rather than a critical leak.
     findings = scan_text("config.py", 'aws = "AKIAIOSFODNN7EXAMPLE"')
     aws = [f for f in findings if f.rule_id == "aws_access_key_id"]
@@ -236,7 +236,7 @@ def test_dummy_variable_name_lowers_confidence():
 
 def test_masked_keys_are_still_detected():
     # Developers sometimes replace chars with * thinking it hides the secret.
-    # The prefix is still a definitive signal — we must surface these.
+    # The prefix is still a definitive signal. We must surface these.
     cases = [
         ('config.py', 'gemini_api = "AIzaSy***********pu6A"', "google_api_key"),
         ('config.py', 'token = "AKIA****EXAMPLE"', "aws_access_key_id"),

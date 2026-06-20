@@ -63,11 +63,11 @@ export function DotGrid() {
           const d2 = dx * dx + dy * dy
 
           if (d2 >= INF2) {
-            // Definitely outside influence — base dot only
+            // Outside influence radius, use base dot
             ctx.moveTo(x + BASE_R, y)
             ctx.arc(x, y, BASE_R, 0, Math.PI * 2)
           } else {
-            // Inside influence radius — compute precise distance
+            // Inside influence radius, compute precise distance
             const t = Math.max(0, 1 - Math.sqrt(d2) / INFLUENCE)
             const ease = t * t   // quadratic ease-in for sharper falloff
             if (ease < 0.006) {
@@ -82,7 +82,7 @@ export function DotGrid() {
       ctx.fillStyle = BASE_DOT
       ctx.fill()
 
-      // ---- Pass 2: glowing dots — halo + core ----
+      // ---- Pass 2: glowing dots (halo + core) ----
       for (const { x, y, ease } of glowing) {
         // Outer glow halo via radial gradient
         const haloR = PEAK_R * 4 * ease
@@ -94,7 +94,7 @@ export function DotGrid() {
         ctx.arc(x, y, haloR, 0, Math.PI * 2)
         ctx.fill()
 
-        // Core dot — interpolates size & alpha from base to peak
+        // Core dot: interpolates size and alpha from base to peak
         const rDot = BASE_R + (PEAK_R - BASE_R) * ease
         const alpha = (0.2 + 0.8 * ease).toFixed(3)
         ctx.fillStyle = `rgba(56,189,248,${alpha})`
