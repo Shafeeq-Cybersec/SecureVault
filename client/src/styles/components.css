@@ -97,6 +97,11 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
 }
 .brand__mark {
   width: 30px;

@@ -19,7 +19,7 @@ export function Header({
   return (
     <header className="header">
       <div className="header__inner">
-        <div className="brand">
+        <button className="brand" onClick={onNewScan} aria-label="Go to home">
           <div className="brand__mark">
             <Lock size={16} />
           </div>
@@ -27,7 +27,7 @@ export function Header({
             <b>SecureVault</b>
             {repo && <span className="brand__repo">{repo}</span>}
           </div>
-        </div>
+        </button>
 
         <div className="header__actions">
           <div className="token-field">
