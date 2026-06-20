@@ -12,8 +12,10 @@
   flex-shrink: 0;
 }
 
-.app-shell .hero,
-.app-shell > main {
+.app-shell .results,
+.app-shell .loading-state,
+.app-shell .error-state,
+.app-shell .zero-findings-state {
   flex: 1;
 }
 
