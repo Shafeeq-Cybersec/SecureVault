@@ -2,9 +2,9 @@
 
 # 🔐 SecureVault
 
-**Find secrets before attackers do.**
+**Catch leaked secrets before attackers do.**
 
-SecureVault scans any public GitHub repository for accidentally committed API keys, tokens, and credentials. Every finding gets a confidence score built from entropy analysis, file-path context, and structural validation, so you know which alerts are real and which are test fixtures.
+Ever accidentally pushed an API key to GitHub? SecureVault scans any public repository and surfaces exposed credentials in seconds — with a confidence score so you know what's actually worth worrying about.
 
 [![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=white)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
@@ -12,7 +12,7 @@ SecureVault scans any public GitHub repository for accidentally committed API ke
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.138-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
 
-[🚀 Live Demo](https://securevault-scanner.vercel.app) · [🐛 Report Bug](../../issues) · [✨ Request Feature](../../issues)
+[🚀 Try it live](https://securevault-scanner.vercel.app) · [🐛 Report a bug](../../issues) · [💡 Suggest a feature](../../issues)
 
 </div>
 
@@ -30,9 +30,21 @@ SecureVault scans any public GitHub repository for accidentally committed API ke
 
 ---
 
+## Why SecureVault?
+
+Leaked secrets are one of the most common causes of security breaches — and most of the time, developers don't even realize they've committed one. SecureVault helps you find them fast, understand how serious they are, and know exactly which file to fix.
+
+- Scans entire repositories in a single API call
+- Detects 27+ secret types across AI, cloud, payments, and DevOps
+- Scores each finding by **severity** (impact if real) and **confidence** (likelihood it is real) — independently
+- Redacts secret values before they ever leave the backend
+- No sign-up, no install, just paste a repo and go
+
+---
+
 ## What it detects
 
-| Secret type | Severity | Validated by |
+| Secret type | Severity | How it's validated |
 |---|---|---|
 | **AI / ML** | | |
 | OpenAI API Key | 🔴 Critical | `sk-` prefix + `T3BlbkFJ` structural marker |
@@ -65,10 +77,10 @@ SecureVault scans any public GitHub repository for accidentally committed API ke
 | **Infrastructure** | | |
 | Private Key (PEM) | 🔴 Critical | `BEGIN ... PRIVATE KEY` header |
 | JWT | 🟡 Medium | Base64 header decoded (must contain `"alg"`) |
-| Database connection string | 🟠 High | URL with literal password credential |
+| Database connection string | 🟠 High | URL with literal password in it |
 | Hardcoded API key / password | 🟡 Medium | Keyword + entropy heuristic |
 
-Every finding also carries a **confidence score (1-99%)** derived from Shannon entropy, variable-name context, file-path context (test fixtures, docs, examples each get a ceiling), and structural format validation. Severity is the impact *if real*; confidence is the likelihood it *is* real. Both are tracked separately.
+Each finding also carries a **confidence score (1-99%)** built from Shannon entropy, variable name context, file path context (test files and docs get a lower ceiling), and structural format checks. Severity tells you the impact *if it's real*. Confidence tells you how likely it *is* real. Both matter.
 
 ---
 
@@ -76,73 +88,72 @@ Every finding also carries a **confidence score (1-99%)** derived from Shannon e
 
 | Layer | Technology |
 |---|---|
-| Frontend | React 18 · TypeScript · Vite 8 |
-| Styling | CSS custom properties (no framework) · Inter + JetBrains Mono |
-| Backend | Python 3.12 · FastAPI · Pydantic v2 |
+| Frontend | React 18, TypeScript, Vite 8 |
+| Styling | CSS custom properties (no framework), Inter + JetBrains Mono |
+| Backend | Python 3.12, FastAPI, Pydantic v2 |
 | HTTP client | httpx (async) |
 | GitHub API | Git Trees API (recursive, 1 request) + Contents API |
-| Deployment | Vercel (frontend) · Railway / Render (backend) |
+| Deployment | Vercel (frontend), Render (backend) |
 
 ---
 
-## Getting started
+## Running it locally
 
-### Prerequisites
+### What you need
 
-- Node.js ≥ 20 and npm
+- Node.js 20+ and npm
 - Python 3.12+
 
-### 1. Clone
+### 1. Clone the repo
 
 ```bash
-git clone https://github.com/your-username/securevault.git
-cd securevault
+git clone https://github.com/Shafeeq-Cybersec/SecureVault.git
+cd SecureVault
 ```
 
-### 2. Backend
+### 2. Start the backend
 
 ```bash
 cd server
 
-# Create and activate a virtual environment
+# Create a virtual environment
 py -3.12 -m venv .venv          # Windows
 python3.12 -m venv .venv        # macOS / Linux
 
+# Activate it
 .venv\Scripts\activate          # Windows
 source .venv/bin/activate       # macOS / Linux
 
-# Install dependencies
+# Install dependencies and run
 pip install -r requirements-dev.txt
-
-# Start the dev server
 uvicorn main:app --reload --port 8000
 ```
 
-API is live at **http://localhost:8000**. Interactive docs at `/docs`.
+API will be at **http://localhost:8000**. Swagger docs at `/docs`.
 
-### 3. Frontend
+### 3. Start the frontend
 
 ```bash
 cd client
-cp .env.example .env   # or: copy .env.example .env (Windows cmd)
+cp .env.example .env
 npm install
 npm run dev
 ```
 
-Open **http://localhost:5173**.
+Open **http://localhost:5173** and you're good to go.
 
-### 4. Optional: GitHub token
+### 4. GitHub token (optional but recommended)
 
-Without a token you get 60 unauthenticated API requests per hour (enough for small repos). For large or private repos, create a [fine-grained PAT](https://github.com/settings/tokens?type=beta) with **Contents: read** scope and paste it into the token field in the header.
+Without a token, GitHub limits you to 60 API requests per hour. With a free fine-grained token (read-only, Contents permission), that jumps to 5,000. You can generate one at [github.com/settings/personal-access-tokens/new](https://github.com/settings/personal-access-tokens/new) and paste it into the token field in the header.
 
 ---
 
 ## Project structure
 
 ```
-securevault/
+SecureVault/
 ├── client/                   # React + Vite frontend
-│   ├── vercel.json           # Vercel deployment config
+│   ├── vercel.json
 │   ├── .env.example
 │   └── src/
 │       ├── api.ts            # fetch wrapper + typed errors
@@ -153,14 +164,14 @@ securevault/
 │
 └── server/                   # FastAPI backend
     ├── Dockerfile
-    ├── requirements.txt      # production deps
-    ├── requirements-dev.txt  # + pytest
+    ├── requirements.txt
+    ├── requirements-dev.txt
     ├── .env.example
     ├── main.py
     └── securevault/
         ├── patterns.py       # detection rules
         ├── scoring.py        # multi-signal confidence engine
-        ├── scanner.py        # detect → score → redact
+        ├── scanner.py        # detect, score, redact
         ├── github_client.py  # rate-limit-aware GitHub API client
         └── scan_service.py   # async orchestrator
 ```
@@ -179,11 +190,13 @@ pytest tests/ -v
 
 ---
 
-## Security notes
+## Security
 
-- The GitHub token is used only to set an `Authorization: Bearer` header. It is never stored, logged, or returned to the frontend.
-- Matched secret values are always redacted before leaving the backend. Responses contain only `first6****last4` previews.
-- No live credential verification is performed (the scanner does structural validation only, never calls AWS/GitHub/Stripe APIs to check if a key is active).
+A few things worth knowing about how SecureVault handles data:
+
+- Your GitHub token is only used to set an `Authorization` header on API requests. It is never stored, logged, or sent anywhere else.
+- Secret values are always redacted before leaving the backend. The frontend only ever sees a `first6****last4` preview, never the full value.
+- SecureVault does not verify credentials against live APIs. It does structural pattern matching only — no calls to AWS, GitHub, Stripe, or anyone else.
 
 ---
 
