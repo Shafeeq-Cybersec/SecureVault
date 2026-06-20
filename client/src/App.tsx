@@ -89,8 +89,12 @@ function App() {
 
       <footer className="footer">
         <div className="footer__inner">
-          <span>Built by <a href="https://github.com/Shafeeq-Cybersec" target="_blank" rel="noopener noreferrer">Shafeeq S</a></span>
-          <span>SecureVault | GitHub Secrets Scanner</span>
+          <div className="footer__left">
+            <span>Built by <a href="https://github.com/Shafeeq-Cybersec" target="_blank" rel="noopener noreferrer">Shafeeq S</a></span>
+            <a href="https://github.com/Shafeeq-Cybersec" target="_blank" rel="noopener noreferrer" title="GitHub" className="footer__badge">GitHub</a>
+            <a href="https://www.linkedin.com/in/shafeeq-cybersec/" target="_blank" rel="noopener noreferrer" title="LinkedIn" className="footer__badge">LinkedIn</a>
+          </div>
+          <span className="footer__right">SecureVault | GitHub Secrets Scanner</span>
         </div>
       </footer>
     </div>

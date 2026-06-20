@@ -8,6 +8,15 @@
   flex-direction: column;
 }
 
+.app-shell > *:not(.footer) {
+  flex-shrink: 0;
+}
+
+.app-shell .hero,
+.app-shell > main {
+  flex: 1;
+}
+
 /* ----------------------------------------------------------------- buttons */
 .btn {
   display: inline-flex;
@@ -1121,6 +1130,7 @@
 .footer {
   border-top: 1px solid var(--border);
   padding: var(--space-5) var(--space-6);
+  margin-top: auto;
 }
 .footer__inner {
   max-width: var(--content-max);
@@ -1128,14 +1138,41 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--space-5);
   font-size: 12px;
   color: var(--text-quaternary);
 }
+.footer__left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.footer__right {
+  color: var(--text-tertiary);
+}
 .footer__inner a {
   color: var(--text-tertiary);
+  transition: color 200ms;
 }
 .footer__inner a:hover {
   color: var(--text-secondary);
+}
+.footer__badge {
+  display: inline-block;
+  padding: 4px 8px;
+  background: var(--bg-hover);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-tertiary) !important;
+  text-decoration: none;
+  transition: all 200ms;
+}
+.footer__badge:hover {
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+  color: var(--accent-text) !important;
 }
 
 /* ------------------------------------------------------------- animations */
@@ -1236,8 +1273,11 @@ a {
   .footer__inner {
     flex-direction: column;
     align-items: center;
-    gap: var(--space-1);
+    gap: var(--space-3);
     text-align: center;
+  }
+  .footer__left {
+    justify-content: center;
   }
   .state {
     padding: var(--space-12) var(--space-5);
