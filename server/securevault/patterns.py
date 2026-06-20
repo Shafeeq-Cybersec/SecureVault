@@ -39,7 +39,8 @@ RULES: list[Rule] = [
         id="aws_access_key_id",
         name="AWS Access Key ID",
         severity=CRITICAL,
-        pattern=re.compile(r"(?P<secret>(?:AKIA|ASIA|AGPA|AIDA|AROA|ANPA)[0-9A-Z]{16})"),
+        # Allow * in value so partially-masked keys like AKIA****EXAMPLE are caught.
+        pattern=re.compile(r"(?P<secret>(?:AKIA|ASIA|AGPA|AIDA|AROA|ANPA)[0-9A-Z*]{8,})"),
         remediation=(
             "Deactivate and delete this access key in the AWS IAM console "
             "immediately, rotate to a new key, and prefer IAM roles or "
@@ -69,7 +70,7 @@ RULES: list[Rule] = [
         severity=CRITICAL,
         # ghp_ (classic PAT), gho_ (OAuth), ghu_ (user-to-server),
         # ghs_ (server-to-server), ghr_ (refresh).
-        pattern=re.compile(r"(?P<secret>gh[pousr]_[A-Za-z0-9]{36,255})"),
+        pattern=re.compile(r"(?P<secret>gh[pousr]_[A-Za-z0-9*]{20,})"),
         remediation=(
             "Revoke the token at github.com/settings/tokens right now, then issue "
             "a new fine-grained token with least privilege. Store it in CI secrets "
@@ -80,7 +81,7 @@ RULES: list[Rule] = [
         id="github_fine_grained_pat",
         name="GitHub Fine-Grained PAT",
         severity=CRITICAL,
-        pattern=re.compile(r"(?P<secret>github_pat_[A-Za-z0-9_]{22,255})"),
+        pattern=re.compile(r"(?P<secret>github_pat_[A-Za-z0-9_*]{10,})"),
         remediation=(
             "Revoke this fine-grained token in GitHub settings immediately and "
             "reissue with minimal repository and permission scope."
@@ -95,8 +96,8 @@ RULES: list[Rule] = [
         # Service-account keys: sk-svcacct-[40+]
         pattern=re.compile(
             r"(?P<secret>sk-(?:proj-|svcacct-)?[A-Za-z0-9]{20}T3BlbkFJ[A-Za-z0-9]{20}"
-            r"|sk-proj-[A-Za-z0-9_\-]{40,}"
-            r"|sk-svcacct-[A-Za-z0-9_\-]{40,})"
+            r"|sk-proj-[A-Za-z0-9_\-*]{20,}"
+            r"|sk-svcacct-[A-Za-z0-9_\-*]{20,})"
         ),
         remediation=(
             "Revoke this key immediately at platform.openai.com/api-keys. "
@@ -109,7 +110,7 @@ RULES: list[Rule] = [
         id="anthropic_api_key",
         name="Anthropic API Key",
         severity=CRITICAL,
-        pattern=re.compile(r"(?P<secret>sk-ant-[A-Za-z0-9_\-]{20,})"),
+        pattern=re.compile(r"(?P<secret>sk-ant-[A-Za-z0-9_\-*]{10,})"),
         remediation=(
             "Rotate the key immediately at console.anthropic.com/settings/keys. "
             "Store it in an environment variable or secret manager, never in source."
@@ -119,7 +120,7 @@ RULES: list[Rule] = [
         id="huggingface_token",
         name="Hugging Face Token",
         severity=HIGH,
-        pattern=re.compile(r"(?P<secret>hf_[A-Za-z0-9]{20,})"),
+        pattern=re.compile(r"(?P<secret>hf_[A-Za-z0-9*]{10,})"),
         remediation=(
             "Revoke the token at huggingface.co/settings/tokens and generate a "
             "replacement with the minimum required scope (read vs. write vs. admin)."
@@ -129,7 +130,7 @@ RULES: list[Rule] = [
         id="replicate_token",
         name="Replicate API Token",
         severity=HIGH,
-        pattern=re.compile(r"(?P<secret>r8_[A-Za-z0-9]{40})"),
+        pattern=re.compile(r"(?P<secret>r8_[A-Za-z0-9*]{20,})"),
         remediation=(
             "Delete the token at replicate.com/account/api-tokens and create a "
             "replacement. Leaked tokens accrue inference charges on your account."
@@ -140,7 +141,7 @@ RULES: list[Rule] = [
         id="digitalocean_pat",
         name="DigitalOcean Personal Access Token",
         severity=CRITICAL,
-        pattern=re.compile(r"(?P<secret>dop_v1_[a-f0-9]{64})"),
+        pattern=re.compile(r"(?P<secret>dop_v1_[a-f0-9*]{20,})"),
         remediation=(
             "Revoke the token in the DigitalOcean control panel under "
             "API > Tokens/Keys immediately — it grants full account access."
@@ -152,7 +153,7 @@ RULES: list[Rule] = [
         name="SendGrid API Key",
         severity=HIGH,
         pattern=re.compile(
-            r"(?P<secret>SG\.[A-Za-z0-9_\-]{22}\.[A-Za-z0-9_\-]{43})"
+            r"(?P<secret>SG\.[A-Za-z0-9_\-*]{10,}\.[A-Za-z0-9_\-*]{10,})"
         ),
         remediation=(
             "Delete the key in the SendGrid dashboard under Settings > API Keys "
@@ -163,7 +164,7 @@ RULES: list[Rule] = [
         id="twilio_account_sid",
         name="Twilio Account SID",
         severity=HIGH,
-        pattern=re.compile(r"(?P<secret>AC[a-f0-9]{32})"),
+        pattern=re.compile(r"(?P<secret>AC[a-f0-9*]{10,})"),
         remediation=(
             "A Twilio Account SID alone is not enough for API access, but its "
             "presence strongly suggests a paired Auth Token is nearby. Rotate Auth "
@@ -177,7 +178,7 @@ RULES: list[Rule] = [
         pattern=re.compile(
             r"(?i)(?:discord[_\-. ]?(?:bot[_\-. ]?)?token|bot[_\-. ]?token)"
             r"[\"'\s]*[:=]\s*[\"']"
-            r"(?P<secret>[A-Za-z0-9_\-]{24,26}\.[A-Za-z0-9_\-]{6}\.[A-Za-z0-9_\-]{27,})"
+            r"(?P<secret>[A-Za-z0-9_\-*]{20,}\.[A-Za-z0-9_\-*]{5,}\.[A-Za-z0-9_\-*]{20,})"
             r"[\"']"
         ),
         remediation=(
@@ -189,7 +190,7 @@ RULES: list[Rule] = [
         id="mailchimp_api_key",
         name="Mailchimp API Key",
         severity=MEDIUM,
-        pattern=re.compile(r"(?P<secret>[a-f0-9]{32}-us\d{1,2})"),
+        pattern=re.compile(r"(?P<secret>[a-f0-9*]{10,}-us\d{1,2})"),
         remediation=(
             "Revoke the key in Mailchimp under Account > Extras > API Keys and "
             "generate a replacement. A leaked key exposes your full subscriber list."
@@ -200,7 +201,7 @@ RULES: list[Rule] = [
         id="gitlab_pat",
         name="GitLab Personal Access Token",
         severity=CRITICAL,
-        pattern=re.compile(r"(?P<secret>glpat-[A-Za-z0-9_\-]{20})"),
+        pattern=re.compile(r"(?P<secret>glpat-[A-Za-z0-9_\-*]{10,})"),
         remediation=(
             "Revoke the token immediately at gitlab.com/-/profile/personal_access_tokens "
             "and issue a replacement with minimum required scope."
@@ -210,7 +211,7 @@ RULES: list[Rule] = [
         id="npm_token",
         name="npm Access Token",
         severity=CRITICAL,
-        pattern=re.compile(r"(?P<secret>npm_[A-Za-z0-9]{36})"),
+        pattern=re.compile(r"(?P<secret>npm_[A-Za-z0-9*]{20,})"),
         remediation=(
             "Revoke the token at npmjs.com/settings/<user>/tokens immediately. "
             "A leaked publish token enables supply-chain attacks via malicious package versions."
@@ -220,7 +221,7 @@ RULES: list[Rule] = [
         id="pypi_token",
         name="PyPI API Token",
         severity=CRITICAL,
-        pattern=re.compile(r"(?P<secret>pypi-[A-Za-z0-9_\-]{32,})"),
+        pattern=re.compile(r"(?P<secret>pypi-[A-Za-z0-9_\-*]{15,})"),
         remediation=(
             "Revoke the token at pypi.org/manage/account/ immediately. "
             "A leaked PyPI token enables supply-chain attacks on Python package consumers."
@@ -231,7 +232,7 @@ RULES: list[Rule] = [
         id="shopify_token",
         name="Shopify Access Token",
         severity=HIGH,
-        pattern=re.compile(r"(?P<secret>shp(?:pa|ss|ca|at)_[a-fA-F0-9]{32})"),
+        pattern=re.compile(r"(?P<secret>shp(?:pa|ss|ca|at)_[a-fA-F0-9*]{15,})"),
         remediation=(
             "Revoke the token in the Shopify Partner Dashboard or store admin "
             "under Apps > Manage private apps and issue a replacement."
@@ -242,8 +243,8 @@ RULES: list[Rule] = [
         name="Square API Key / OAuth Token",
         severity=HIGH,
         pattern=re.compile(
-            r"(?P<secret>(?:sq0atp|sq0csp)-[0-9A-Za-z\-_]{22,43}"
-            r"|EAAAl[0-9A-Za-z_\-]{60})"
+            r"(?P<secret>(?:sq0atp|sq0csp)-[0-9A-Za-z\-_*]{10,}"
+            r"|EAAAl[0-9A-Za-z_\-*]{20,})"
         ),
         remediation=(
             "Revoke the key in the Square Developer Dashboard under "
@@ -254,7 +255,7 @@ RULES: list[Rule] = [
         id="razorpay_live_key",
         name="Razorpay Live API Key",
         severity=CRITICAL,
-        pattern=re.compile(r"(?P<secret>rzp_live_[A-Za-z0-9]{14})"),
+        pattern=re.compile(r"(?P<secret>rzp_live_[A-Za-z0-9*]{6,})"),
         remediation=(
             "Regenerate the key in the Razorpay Dashboard under Settings > API Keys. "
             "A live key can initiate and manage real payment transactions."
@@ -264,7 +265,8 @@ RULES: list[Rule] = [
         id="google_api_key",
         name="Google API Key",
         severity=HIGH,
-        pattern=re.compile(r"(?P<secret>AIza[0-9A-Za-z_\-]{35})"),
+        # Allow * so partially-masked keys like AIzaSy***pu6A are still caught.
+        pattern=re.compile(r"(?P<secret>AIza[0-9A-Za-z_\-*]{10,})"),
         remediation=(
             "Regenerate the key in Google Cloud Console > APIs & Services > "
             "Credentials, and restrict it by API, HTTP referrer, or IP. Delete the "
@@ -275,7 +277,7 @@ RULES: list[Rule] = [
         id="stripe_secret_key",
         name="Stripe Secret Key (live)",
         severity=CRITICAL,
-        pattern=re.compile(r"(?P<secret>sk_live_[0-9a-zA-Z]{16,})"),
+        pattern=re.compile(r"(?P<secret>sk_live_[0-9a-zA-Z*]{6,})"),
         remediation=(
             "Roll the key in the Stripe Dashboard > Developers > API keys "
             "immediately — a live secret key can move real money. Review recent "
@@ -286,7 +288,7 @@ RULES: list[Rule] = [
         id="stripe_publishable_key",
         name="Stripe Publishable Key (live)",
         severity=MEDIUM,
-        pattern=re.compile(r"(?P<secret>pk_live_[0-9a-zA-Z]{16,})"),
+        pattern=re.compile(r"(?P<secret>pk_live_[0-9a-zA-Z*]{6,})"),
         remediation=(
             "Publishable keys are meant to be public, but their presence confirms "
             "a live Stripe integration. Confirm no secret key sits alongside it and "
@@ -297,7 +299,7 @@ RULES: list[Rule] = [
         id="slack_token",
         name="Slack Token",
         severity=HIGH,
-        pattern=re.compile(r"(?P<secret>xox[baprs]-[0-9A-Za-z-]{10,})"),
+        pattern=re.compile(r"(?P<secret>xox[baprs]-[0-9A-Za-z*-]{10,})"),
         remediation=(
             "Revoke the token in the Slack app's OAuth settings and reinstall the "
             "app to mint a fresh one. Store it in a secret manager."

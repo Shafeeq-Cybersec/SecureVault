@@ -234,6 +234,23 @@ def test_dummy_variable_name_lowers_confidence():
     assert gen[0].confidence <= 45
 
 
+def test_masked_keys_are_still_detected():
+    # Developers sometimes replace chars with * thinking it hides the secret.
+    # The prefix is still a definitive signal — we must surface these.
+    cases = [
+        ('config.py', 'gemini_api = "AIzaSy***********pu6A"', "google_api_key"),
+        ('config.py', 'token = "AKIA****EXAMPLE"', "aws_access_key_id"),
+        ('config.py', 'key = "sk_live_****abc"', "stripe_secret_key"),
+        ('config.py', 'pat = "ghp_****1234567890abcdef"', "github_pat"),
+        ('config.py', 'key = "sk-ant-api03-abc*****xyz"', "anthropic_api_key"),
+        ('config.py', 'key = "glpat-abc***xyz1234"', "gitlab_pat"),
+    ]
+    for path, src, expected_id in cases:
+        findings = scan_text(path, src)
+        ids = {f.rule_id for f in findings}
+        assert expected_id in ids, f"masked key not detected for rule {expected_id!r} in: {src!r}"
+
+
 def test_entropy_signal_present_on_real_keys():
     findings = scan_text("src/config.py", SAMPLE)
     gh = next(f for f in findings if f.rule_id == "github_pat")
