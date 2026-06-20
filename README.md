@@ -20,7 +20,13 @@ SecureVault scans any public GitHub repository for accidentally committed API ke
 
 ## Screenshots
 
-> _Add a screenshot of the idle hero page and one of the results view here._
+**Hero page**
+
+![SecureVault hero](docs/hero.png)
+
+**Results view**
+
+![SecureVault results](docs/results.png)
 
 ---
 
