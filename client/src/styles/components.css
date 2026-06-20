@@ -1157,22 +1157,24 @@
 .footer__inner a:hover {
   color: var(--text-secondary);
 }
-.footer__badge {
-  display: inline-block;
-  padding: 4px 8px;
+.footer__icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius);
   background: var(--bg-hover);
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--text-tertiary) !important;
-  text-decoration: none;
-  transition: all 200ms;
+  color: var(--text-secondary);
+  transition: all 200ms cubic-bezier(0.2, 0, 0.38, 0.9);
 }
-.footer__badge:hover {
+.footer__icon-btn:hover {
   background: var(--accent-bg);
   border-color: var(--accent-border);
-  color: var(--accent-text) !important;
+  color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(110, 98, 229, 0.15);
 }
 
 /* ------------------------------------------------------------- animations */
