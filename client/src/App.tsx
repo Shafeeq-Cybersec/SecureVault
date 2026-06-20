@@ -89,8 +89,8 @@ function App() {
 
       <footer className="footer">
         <div className="footer__inner">
-          <span>SecureVault — GitHub secrets scanner</span>
-          <span>AWS · GitHub · Stripe · Slack · Google · JWT · private keys · DB URIs</span>
+          <span>Built by <a href="https://github.com/Shafeeq-Cybersec" target="_blank" rel="noopener noreferrer">Shafeeq S</a></span>
+          <span>SecureVault — GitHub Secrets Scanner</span>
         </div>
       </footer>
     </div>
