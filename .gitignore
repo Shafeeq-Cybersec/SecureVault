@@ -1,0 +1,20 @@
+# Node / frontend
+client/node_modules/
+client/dist/
+client/.vite/
+
+# Python / backend
+server/.venv/
+__pycache__/
+*.pyc
+
+# Env files (keep .env.example, ignore real secrets)
+.env
+client/.env
+server/.env
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

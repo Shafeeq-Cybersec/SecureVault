@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(New-Item -ItemType Directory -Force \"D:\\\\Projects\\\\SecureVault\\\\server\")",
+      "PowerShell(py -3.12 -m venv \"D:\\\\Projects\\\\SecureVault\\\\server\\\\.venv\")",
+      "PowerShell(& \"D:\\\\Projects\\\\SecureVault\\\\server\\\\.venv\\\\Scripts\\\\python.exe\" --version)",
+      "PowerShell(& \"D:\\\\Projects\\\\SecureVault\\\\server\\\\.venv\\\\Scripts\\\\python.exe\" -m pip install --upgrade pip 2>&1)",
+      "PowerShell(& \"D:\\\\Projects\\\\SecureVault\\\\server\\\\.venv\\\\Scripts\\\\python.exe\" -m pip install \"fastapi\" \"uvicorn[standard]\" 2>&1)",
+      "mcp__Claude_Preview__preview_start",
+      "PowerShell(try { $h = Invoke-RestMethod \"http://127.0.0.1:8000/api/health\" -TimeoutSec 3; Write-Output \"backend health: $\\($h.status\\)\" } catch { Write-Output \"backend DOWN — restarting needed\" })",
+      "Bash(npm run *)"
+    ]
+  }
+}

@@ -1,0 +1,174 @@
+/* ============================================================================
+   SecureVault — design tokens + base
+   Dark, Linear/Vercel-inspired. Typography-led. One accent. Borders for
+   structure, not decoration.
+   ========================================================================== */
+
+:root {
+  /* Surfaces — very dark, near-black, layered by subtle lightness */
+  --bg: #09090b;
+  --bg-elevated: #0e0e11;
+  --bg-card: #121215;
+  --bg-subtle: #18181b;
+  --bg-hover: #1c1c20;
+
+  /* Borders — low contrast, 1px, structural */
+  --border: rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.12);
+  --border-focus: rgba(110, 98, 229, 0.55);
+
+  /* Text hierarchy */
+  --text-primary: #ededef;
+  --text-secondary: #a1a1aa;
+  --text-tertiary: #71717a;
+  --text-quaternary: #52525b;
+
+  /* The single accent — muted indigo-violet, used sparingly */
+  --accent: #6e62e5;
+  --accent-hover: #7e73ef;
+  --accent-text: #b8b1f4;
+  --accent-bg: rgba(110, 98, 229, 0.12);
+  --accent-border: rgba(110, 98, 229, 0.3);
+
+  /* Severity — low saturation, professional */
+  --critical: #e0696e;
+  --critical-bg: rgba(224, 105, 110, 0.1);
+  --critical-border: rgba(224, 105, 110, 0.28);
+
+  --high: #d9a441;
+  --high-bg: rgba(217, 164, 65, 0.1);
+  --high-border: rgba(217, 164, 65, 0.26);
+
+  --medium: #6ea8e0;
+  --medium-bg: rgba(110, 168, 224, 0.1);
+  --medium-border: rgba(110, 168, 224, 0.26);
+
+  --low: #8b8d98;
+  --low-bg: rgba(139, 141, 152, 0.1);
+  --low-border: rgba(139, 141, 152, 0.26);
+
+  --success: #5cc28d;
+  --success-bg: rgba(92, 194, 141, 0.1);
+  --success-border: rgba(92, 194, 141, 0.28);
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Spacing scale (4px base) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Radius — moderate, consistent */
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* Elevation — subtle only */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5);
+
+  /* Motion */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition: 160ms var(--ease);
+
+  --header-height: 60px;
+  --sidebar-width: 320px;
+  --content-max: 1180px;
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: -0.006em;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+input {
+  font-family: inherit;
+  color: inherit;
+}
+
+a {
+  color: var(--accent-text);
+  text-decoration: none;
+}
+
+code,
+pre,
+.mono {
+  font-family: var(--font-mono);
+}
+
+::selection {
+  background: var(--accent-bg);
+  color: var(--text-primary);
+}
+
+:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Custom scrollbar — quiet */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 6px;
+  border: 2px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-quaternary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
