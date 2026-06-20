@@ -87,6 +87,24 @@ RULES: list[Rule] = [
         ),
     ),
     Rule(
+        id="openai_api_key",
+        name="OpenAI API Key",
+        severity=CRITICAL,
+        # Legacy keys: sk-[48 alphanum]
+        # Project keys: sk-proj-[40+ alphanum/dash/underscore]
+        # Service-account keys: sk-svcacct-[40+]
+        pattern=re.compile(
+            r"(?P<secret>sk-(?:proj-|svcacct-)?[A-Za-z0-9]{20}T3BlbkFJ[A-Za-z0-9]{20}"
+            r"|sk-proj-[A-Za-z0-9_\-]{40,}"
+            r"|sk-svcacct-[A-Za-z0-9_\-]{40,})"
+        ),
+        remediation=(
+            "Revoke this key immediately at platform.openai.com/api-keys. "
+            "Generate a replacement, store it in an environment variable or secret "
+            "manager, and purge the exposed key from git history with git-filter-repo."
+        ),
+    ),
+    Rule(
         id="google_api_key",
         name="Google API Key",
         severity=HIGH,

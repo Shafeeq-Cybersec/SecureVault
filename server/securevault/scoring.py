@@ -51,6 +51,7 @@ BASE_CONFIDENCE = {
     "github_pat": 90,
     "github_fine_grained_pat": 90,
     "stripe_secret_key": 90,
+    "openai_api_key": 90,
     "google_api_key": 85,
     "slack_token": 85,
     "aws_secret_access_key": 80,

@@ -29,11 +29,12 @@ SecureVault scans any public GitHub repository for accidentally committed API ke
 | Secret type | Severity | Validated by |
 |---|---|---|
 | AWS Access Key ID | 🔴 Critical | `AKIA`/`ASIA`/`AROA` prefix + length |
-| AWS Secret Access Key | 🟠 High | Length + charset |
-| GitHub Personal Access Token | 🟠 High | `ghp_`/`gho_`/`ghu_`/`ghs_` prefix + length |
-| GitHub Fine-Grained PAT | 🟠 High | `github_pat_` prefix |
+| AWS Secret Access Key | 🔴 Critical | Length + charset |
+| GitHub Personal Access Token | 🔴 Critical | `ghp_`/`gho_`/`ghu_`/`ghs_` prefix + length |
+| GitHub Fine-Grained PAT | 🔴 Critical | `github_pat_` prefix |
+| OpenAI API Key | 🔴 Critical | `sk-` prefix + length/format |
 | Google API Key | 🟠 High | `AIza` prefix + length |
-| Stripe Secret Key | 🟠 High | `sk_live_`/`sk_test_` prefix + length |
+| Stripe Secret Key | 🔴 Critical | `sk_live_` prefix + length |
 | Stripe Publishable Key | 🟡 Medium | `pk_live_`/`pk_test_` prefix |
 | Slack Token | 🟠 High | `xox[bpoa]-` regex |
 | Private Key (PEM) | 🔴 Critical | `BEGIN ... PRIVATE KEY` header |
