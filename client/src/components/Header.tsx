@@ -30,25 +30,37 @@ export function Header({
         </button>
 
         <div className="header__actions">
-          <div className="token-field">
-            <Key size={14} />
-            <input
-              type={show ? 'text' : 'password'}
-              value={token}
-              onChange={(e) => onTokenChange(e.target.value)}
-              placeholder="GitHub token (optional)"
-              autoComplete="off"
-              spellCheck={false}
-              aria-label="GitHub token"
-            />
-            <button
-              type="button"
-              className="token-field__toggle"
-              onClick={() => setShow((s) => !s)}
-              aria-label={show ? 'Hide token' : 'Show token'}
-            >
-              {show ? <EyeOff size={14} /> : <Eye size={14} />}
-            </button>
+          <div className="token-field-wrap">
+            <div className="token-field">
+              <Key size={14} />
+              <input
+                type={show ? 'text' : 'password'}
+                value={token}
+                onChange={(e) => onTokenChange(e.target.value)}
+                placeholder="GitHub token (optional)"
+                autoComplete="off"
+                spellCheck={false}
+                aria-label="GitHub token"
+              />
+              <button
+                type="button"
+                className="token-field__toggle"
+                onClick={() => setShow((s) => !s)}
+                aria-label={show ? 'Hide token' : 'Show token'}
+              >
+                {show ? <EyeOff size={14} /> : <Eye size={14} />}
+              </button>
+            </div>
+            {!token && (
+              <a
+                href="https://github.com/settings/personal-access-tokens/new"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="token-hint"
+              >
+                Generate one on GitHub
+              </a>
+            )}
           </div>
 
           {showNewScan && (
