@@ -46,18 +46,33 @@ STRONG_PREFIX_RULES = {
 # High-specificity provider prefixes are very unlikely to match by accident;
 # keyword-based rules (generic key / password) are far more prone to noise.
 BASE_CONFIDENCE = {
+    # Strong structural prefix + exact length — very low FP rate
     "private_key": 92,
+    "digitalocean_pat": 92,
+    "gitlab_pat": 92,
+    "npm_token": 92,
+    "pypi_token": 92,
     "aws_access_key_id": 90,
     "github_pat": 90,
     "github_fine_grained_pat": 90,
     "stripe_secret_key": 90,
     "openai_api_key": 90,
+    "anthropic_api_key": 90,
+    "razorpay_live_key": 90,
+    "sendgrid_api_key": 88,
+    "shopify_token": 88,
     "google_api_key": 85,
+    "huggingface_token": 85,
+    "replicate_token": 85,
     "slack_token": 85,
+    "square_api_key": 85,
+    "mailchimp_api_key": 82,
     "aws_secret_access_key": 80,
+    "discord_bot_token": 80,
     "stripe_publishable_key": 80,
     "db_connection_string": 72,
     "jwt": 70,
+    "twilio_account_sid": 65,  # AC prefix alone is not uniquely Twilio
     "generic_api_key": 50,
     "hardcoded_password": 50,
 }

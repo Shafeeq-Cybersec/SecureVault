@@ -26,6 +26,21 @@ STRIPEPUB = "pk_live_0123456789abcdefABCDEFij"
 SLACK = "xoxb-1234567890-0987654321-abcdEFGHijklmnopQRSTuvwx"
 GOOGLE = "AIza012345678901234567890123456789abcde"
 DATABASE_URL = "postgres://app_user:Sup3rS3cret@prod-db.internal:5432/appdb"
+OPENAI_API_KEY = "sk-proj-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOP"
+ANTHROPIC_API_KEY = "sk-ant-api03-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOP"
+HF_TOKEN = "hf_abcdefghijklmnopqrstuvwxyzABCDEFGH"
+REPLICATE_API_TOKEN = "r8_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMN"
+DO_PAT = "dop_v1_abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789"
+SENDGRID_API_KEY = "SG.abcdefghijklmnopqrstuv.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQ"
+TWILIO_SID = "AC1234567890abcdef1234567890abcdef"
+discord_bot_token = "NTk3MDMwNDQxNzkwMzYwNjU2.Xab12a.ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567"
+MAILCHIMP_KEY = "abcdef0123456789abcdef0123456789-us1"
+GITLAB_TOKEN = "glpat-abcdefghijklmnopqrst"
+NPM_TOKEN = "npm_abcdefghijklmnopqrstuvwxyzABCDEFGHIJ"
+PYPI_TOKEN = "pypi-abcdefghijklmnopqrstuvwxyzABCDEF"
+SHOPIFY_TOKEN = "shppa_abcdef0123456789ABCDEF0123456789"
+SQUARE_TOKEN = "sq0atp-abcdefghijklmnopqrstu1"
+RAZORPAY_KEY = "rzp_live_abcdefghijklmn"
 '''
 
 EXPECTED_RULE_IDS = {
@@ -41,6 +56,26 @@ EXPECTED_RULE_IDS = {
     "slack_token",
     "google_api_key",
     "db_connection_string",
+    # AI / ML
+    "openai_api_key",
+    "anthropic_api_key",
+    "huggingface_token",
+    "replicate_token",
+    # Cloud
+    "digitalocean_pat",
+    # Communication / SaaS
+    "sendgrid_api_key",
+    "twilio_account_sid",
+    "discord_bot_token",
+    "mailchimp_api_key",
+    # DevOps / registries
+    "gitlab_pat",
+    "npm_token",
+    "pypi_token",
+    # E-commerce / payments
+    "shopify_token",
+    "square_api_key",
+    "razorpay_live_key",
 }
 
 

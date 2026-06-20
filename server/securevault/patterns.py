@@ -104,6 +104,162 @@ RULES: list[Rule] = [
             "manager, and purge the exposed key from git history with git-filter-repo."
         ),
     ),
+    # ── Additional AI / ML services ──────────────────────────────────────────
+    Rule(
+        id="anthropic_api_key",
+        name="Anthropic API Key",
+        severity=CRITICAL,
+        pattern=re.compile(r"(?P<secret>sk-ant-[A-Za-z0-9_\-]{20,})"),
+        remediation=(
+            "Rotate the key immediately at console.anthropic.com/settings/keys. "
+            "Store it in an environment variable or secret manager, never in source."
+        ),
+    ),
+    Rule(
+        id="huggingface_token",
+        name="Hugging Face Token",
+        severity=HIGH,
+        pattern=re.compile(r"(?P<secret>hf_[A-Za-z0-9]{20,})"),
+        remediation=(
+            "Revoke the token at huggingface.co/settings/tokens and generate a "
+            "replacement with the minimum required scope (read vs. write vs. admin)."
+        ),
+    ),
+    Rule(
+        id="replicate_token",
+        name="Replicate API Token",
+        severity=HIGH,
+        pattern=re.compile(r"(?P<secret>r8_[A-Za-z0-9]{40})"),
+        remediation=(
+            "Delete the token at replicate.com/account/api-tokens and create a "
+            "replacement. Leaked tokens accrue inference charges on your account."
+        ),
+    ),
+    # ── Cloud providers ───────────────────────────────────────────────────────
+    Rule(
+        id="digitalocean_pat",
+        name="DigitalOcean Personal Access Token",
+        severity=CRITICAL,
+        pattern=re.compile(r"(?P<secret>dop_v1_[a-f0-9]{64})"),
+        remediation=(
+            "Revoke the token in the DigitalOcean control panel under "
+            "API > Tokens/Keys immediately — it grants full account access."
+        ),
+    ),
+    # ── Communication / SaaS ─────────────────────────────────────────────────
+    Rule(
+        id="sendgrid_api_key",
+        name="SendGrid API Key",
+        severity=HIGH,
+        pattern=re.compile(
+            r"(?P<secret>SG\.[A-Za-z0-9_\-]{22}\.[A-Za-z0-9_\-]{43})"
+        ),
+        remediation=(
+            "Delete the key in the SendGrid dashboard under Settings > API Keys "
+            "and issue a replacement. A full-access key lets anyone send email as you."
+        ),
+    ),
+    Rule(
+        id="twilio_account_sid",
+        name="Twilio Account SID",
+        severity=HIGH,
+        pattern=re.compile(r"(?P<secret>AC[a-f0-9]{32})"),
+        remediation=(
+            "A Twilio Account SID alone is not enough for API access, but its "
+            "presence strongly suggests a paired Auth Token is nearby. Rotate Auth "
+            "Tokens in the Twilio Console and audit surrounding code immediately."
+        ),
+    ),
+    Rule(
+        id="discord_bot_token",
+        name="Discord Bot Token",
+        severity=HIGH,
+        pattern=re.compile(
+            r"(?i)(?:discord[_\-. ]?(?:bot[_\-. ]?)?token|bot[_\-. ]?token)"
+            r"[\"'\s]*[:=]\s*[\"']"
+            r"(?P<secret>[A-Za-z0-9_\-]{24,26}\.[A-Za-z0-9_\-]{6}\.[A-Za-z0-9_\-]{27,})"
+            r"[\"']"
+        ),
+        remediation=(
+            "Regenerate the token in the Discord Developer Portal under your "
+            "application's Bot settings. Anyone with this token has full bot control."
+        ),
+    ),
+    Rule(
+        id="mailchimp_api_key",
+        name="Mailchimp API Key",
+        severity=MEDIUM,
+        pattern=re.compile(r"(?P<secret>[a-f0-9]{32}-us\d{1,2})"),
+        remediation=(
+            "Revoke the key in Mailchimp under Account > Extras > API Keys and "
+            "generate a replacement. A leaked key exposes your full subscriber list."
+        ),
+    ),
+    # ── DevOps / package registries ───────────────────────────────────────────
+    Rule(
+        id="gitlab_pat",
+        name="GitLab Personal Access Token",
+        severity=CRITICAL,
+        pattern=re.compile(r"(?P<secret>glpat-[A-Za-z0-9_\-]{20})"),
+        remediation=(
+            "Revoke the token immediately at gitlab.com/-/profile/personal_access_tokens "
+            "and issue a replacement with minimum required scope."
+        ),
+    ),
+    Rule(
+        id="npm_token",
+        name="npm Access Token",
+        severity=CRITICAL,
+        pattern=re.compile(r"(?P<secret>npm_[A-Za-z0-9]{36})"),
+        remediation=(
+            "Revoke the token at npmjs.com/settings/<user>/tokens immediately. "
+            "A leaked publish token enables supply-chain attacks via malicious package versions."
+        ),
+    ),
+    Rule(
+        id="pypi_token",
+        name="PyPI API Token",
+        severity=CRITICAL,
+        pattern=re.compile(r"(?P<secret>pypi-[A-Za-z0-9_\-]{32,})"),
+        remediation=(
+            "Revoke the token at pypi.org/manage/account/ immediately. "
+            "A leaked PyPI token enables supply-chain attacks on Python package consumers."
+        ),
+    ),
+    # ── E-commerce / payments ─────────────────────────────────────────────────
+    Rule(
+        id="shopify_token",
+        name="Shopify Access Token",
+        severity=HIGH,
+        pattern=re.compile(r"(?P<secret>shp(?:pa|ss|ca|at)_[a-fA-F0-9]{32})"),
+        remediation=(
+            "Revoke the token in the Shopify Partner Dashboard or store admin "
+            "under Apps > Manage private apps and issue a replacement."
+        ),
+    ),
+    Rule(
+        id="square_api_key",
+        name="Square API Key / OAuth Token",
+        severity=HIGH,
+        pattern=re.compile(
+            r"(?P<secret>(?:sq0atp|sq0csp)-[0-9A-Za-z\-_]{22,43}"
+            r"|EAAAl[0-9A-Za-z_\-]{60})"
+        ),
+        remediation=(
+            "Revoke the key in the Square Developer Dashboard under "
+            "Applications > Credentials and generate a replacement."
+        ),
+    ),
+    Rule(
+        id="razorpay_live_key",
+        name="Razorpay Live API Key",
+        severity=CRITICAL,
+        pattern=re.compile(r"(?P<secret>rzp_live_[A-Za-z0-9]{14})"),
+        remediation=(
+            "Regenerate the key in the Razorpay Dashboard under Settings > API Keys. "
+            "A live key can initiate and manage real payment transactions."
+        ),
+    ),
     Rule(
         id="google_api_key",
         name="Google API Key",

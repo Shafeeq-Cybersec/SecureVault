@@ -28,15 +28,35 @@ SecureVault scans any public GitHub repository for accidentally committed API ke
 
 | Secret type | Severity | Validated by |
 |---|---|---|
+| **AI / ML** | | |
+| OpenAI API Key | 🔴 Critical | `sk-` prefix + `T3BlbkFJ` structural marker |
+| Anthropic API Key | 🔴 Critical | `sk-ant-` prefix |
+| Hugging Face Token | 🟠 High | `hf_` prefix + length |
+| Replicate API Token | 🟠 High | `r8_` prefix + exact length |
+| **Cloud** | | |
 | AWS Access Key ID | 🔴 Critical | `AKIA`/`ASIA`/`AROA` prefix + length |
-| AWS Secret Access Key | 🔴 Critical | Length + charset |
-| GitHub Personal Access Token | 🔴 Critical | `ghp_`/`gho_`/`ghu_`/`ghs_` prefix + length |
-| GitHub Fine-Grained PAT | 🔴 Critical | `github_pat_` prefix |
-| OpenAI API Key | 🔴 Critical | `sk-` prefix + length/format |
+| AWS Secret Access Key | 🔴 Critical | Context keyword + length + charset |
+| DigitalOcean PAT | 🔴 Critical | `dop_v1_` prefix + 64 hex chars |
 | Google API Key | 🟠 High | `AIza` prefix + length |
-| Stripe Secret Key | 🔴 Critical | `sk_live_` prefix + length |
-| Stripe Publishable Key | 🟡 Medium | `pk_live_`/`pk_test_` prefix |
-| Slack Token | 🟠 High | `xox[bpoa]-` regex |
+| **Communication / SaaS** | | |
+| SendGrid API Key | 🟠 High | `SG.` prefix + two-segment format |
+| Slack Token | 🟠 High | `xox[bpoa]-` prefix |
+| Twilio Account SID | 🟠 High | `AC` prefix + 32 hex chars |
+| Discord Bot Token | 🟠 High | Context keyword + three-part token format |
+| Mailchimp API Key | 🟡 Medium | 32 hex chars + `-us\d` datacenter suffix |
+| **DevOps / Registries** | | |
+| GitHub Personal Access Token | 🔴 Critical | `ghp_`/`gho_`/`ghu_`/`ghs_` prefix |
+| GitHub Fine-Grained PAT | 🔴 Critical | `github_pat_` prefix |
+| GitLab Personal Access Token | 🔴 Critical | `glpat-` prefix + exact length |
+| npm Access Token | 🔴 Critical | `npm_` prefix + exact length |
+| PyPI API Token | 🔴 Critical | `pypi-` prefix + length |
+| **Payments / E-commerce** | | |
+| Stripe Secret Key (live) | 🔴 Critical | `sk_live_` prefix + length |
+| Stripe Publishable Key (live) | 🟡 Medium | `pk_live_` prefix |
+| Razorpay Live API Key | 🔴 Critical | `rzp_live_` prefix + exact length |
+| Square API Key / OAuth Token | 🟠 High | `sq0atp-`/`sq0csp-`/`EAAAl` prefix |
+| Shopify Access Token | 🟠 High | `shppa_`/`shpss_`/`shpca_`/`shpat_` + 32 hex |
+| **Infrastructure** | | |
 | Private Key (PEM) | 🔴 Critical | `BEGIN ... PRIVATE KEY` header |
 | JWT | 🟡 Medium | Base64 header decoded — must contain `"alg"` |
 | Database connection string | 🟠 High | URL with literal password credential |
